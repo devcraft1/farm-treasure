@@ -1,0 +1,25 @@
+.formGeneral{
+    background-image: url(/images/tool12.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 70vh;
+   
+}
+
+.formPosition{
+     width:30%; 
+     margin:100px auto;
+     background-color:grey;
+}
+
+.formText{
+    text-align: center;
+}
+
+
+@media only screen and (max-width:736px) {
+    .loginGeneral{
+        /* background-color:red; */
+    }
+
+}

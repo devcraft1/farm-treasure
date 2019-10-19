@@ -5,7 +5,10 @@ const mongoose = require('mongoose')
 const farmSchema = new mongoose.Schema({
     name: String,
     image: String,
-    description: String
+    description: String,
+    address:String,
+    email:String,
+    contact:String
 })
 
 module.exports = mongoose.model('Farm', farmSchema);

@@ -1,0 +1,24 @@
+.displayGeneral{
+    background-image: url(/images/tool12.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+   
+}
+
+.displayPosition{
+     /* width:30%; 
+     margin:100px auto */
+     text-align: center;
+}
+.displayFarmH7{
+    font-family:sans-serif; 
+    font-size: 40px;
+     font-weight: 600;
+     margin-bottom: 50px
+}
+.displayImg{
+    height: 300px; 
+    width: 400px; 
+    margin-bottom: 50px  
+}

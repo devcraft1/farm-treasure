@@ -1,0 +1,130 @@
+.headerAll{
+    }
+    
+    .headerTop2{
+        display: flex;
+        justify-content: space-around;
+        background-color: white;
+        align-items: center; 
+    
+    }
+    .headerIcons{
+        padding-left:40px;
+    }
+    
+    .headerIcons a {
+        align-self: center;
+        padding:3px;
+        
+    }
+    .headerIcons a:hover{
+      background-color: red;
+         
+    }
+    
+    .farmTreasure{
+        height:120px;
+        width:20rem;
+    }
+    
+    .textLinkDiv{
+        display: flex;
+        align-items: center;
+        padding:20px;  
+          
+    }
+    
+    .textLink {
+        list-style: none;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    .textLink a{
+        font-family: fantasy;
+        font: 600;
+        font-size: 20px;
+        font-weight: 1000;
+        text-decoration: none; 
+    }
+    
+    .textLink:hover{
+       
+      background-color: red;
+    }
+    
+    .textLink {
+        position: relative;
+        display: inline-block;
+        
+      }
+      
+      .textLink-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 120px;
+        padding: 12px 10px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+      
+      .textLink:hover .textLink-content {
+        display: block;
+      }
+    
+      .textLink-content {
+        left: 0px;
+        right:0px;
+      }
+    
+      .textLink-content a {
+        font-size: 17px;
+        color: black;
+        padding: 12px 10px;
+        text-decoration: none;
+        display: block;
+      }
+    
+    
+      .textLink-content a:hover {
+          background-color: red
+      }
+    
+    .headerBottomDiv{
+        padding-left: 10px;
+        padding-right: 0px;
+    }
+    
+    .headerButton{
+        padding: 3px;
+        border-radius: 10%; 
+        text-decoration: none; 
+        color: black;
+    }
+    
+    .headerButton:hover{
+        background-color: red;
+      }
+      
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

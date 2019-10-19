@@ -1,0 +1,33 @@
+.mainBodyImage{
+    /* background-color: red; */
+    height: 60vh;
+    background-image: url(/images/farm.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover
+}
+
+.mainBodyImage2{
+    /* background-color: red; */
+    height: 60vh;
+    background-image: url(/images/vegetables.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover
+}
+.mainBodyImage3{
+    /* background-color: red; */
+    height: 60vh;
+    background-image: url(/images/apple.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover
+}
+
+.mainParagragh{
+ text-align: center;
+}
+
+.mainSubText{
+    color: red;
+}

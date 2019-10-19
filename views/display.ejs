@@ -1,13 +1,42 @@
 <% include paths/header %>
 
-    <p>
-        <%= farms.name%>
-    </p>
+    <% include paths/displayStyling %>
 
-    <img src="<%=farms.image%>">
+        <div class="displayGeneral">
+            <div class="displayPosition">
 
-    <p>
-        <%= farms.description%>
-    </p>
+                <p>
+                    <h7 class="displayFarmH7">Farm:
+                        <%= farms.name%>
+                    </h7>
+                </p>
 
-    <% include paths/footer %>
+                <img class="displayImg" src="<%=farms.image%>">
+                <p>
+
+                    <h7>Description:
+                        <%= farms.description%>
+                    </h7>
+                </p>
+
+                <p>
+                    <h7>Address:
+                        <%= farms.address%>
+                    </h7>
+                </p>
+
+                <p>
+                    <h7>Email:
+                        <%= farms.email%>
+                    </h7>
+                </p>
+
+                <p>
+                    <h7>Contact:
+                        <%= farms.contact%>
+                    </h7>
+                </p>
+            </div>
+        </div>
+
+        <% include paths/footer %>

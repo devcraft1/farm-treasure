@@ -5,6 +5,7 @@ const express = require('express')
 const bodyPaser = require('body-parser')
 const mongoose = require('mongoose')
 const passport = require('passport')
+const flash =require('connect-flash')
 const localStrategy = require('passport-local')
 const app = express()
 
@@ -28,6 +29,9 @@ passport.deserializeUser(User.deserializeUser());
 app.use(bodyPaser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 
+app.use(flash())
+
+
 //Header display in all page
 app.use((req, res, next) => {
     res.locals.currentUser = req.user
@@ -39,8 +43,6 @@ mongoose.connect('mongodb://localhost:27017/farmTreasure', { useNewUrlParser: tr
     .then(() => console.log('mongodb running'))
     .catch((err) => console.log('error', err))
 
-
-    
 //Routes
 
 //Route for list of farms
@@ -123,7 +125,7 @@ app.get('/login', (req, res) => {
 app.post('/login', passport.authenticate('local',
     {
         successRedirect: "/farms",
-        failureRedirect: "/login"
+        failureRedirect: "/login",
     }),
     (req, res) => {
     })

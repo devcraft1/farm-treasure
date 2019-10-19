@@ -1,8 +1,26 @@
-<h1>Sign Up</h1>
+<% include paths/header%>
 
+    <% include paths/registerStyling%>
 
-<form action="/register" method="POST">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <button>Sign up</button>
-</form>
+        <div class="registerGeneral">
+            <div class="container">
+                <div class="row">
+                    <div class="registerPosition">
+                        <h1 class="registerText">Sign up</h1>
+                        <form action="/register" method="POST">
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="username" placeholder="username">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="password" name="password" placeholder="password">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-lg btn-secondary btn-block">Sign up</button>
+                            </div>
+                            <h7 class="registerNote">Note: Change username if sign up fails</h7>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% include paths/footer%>

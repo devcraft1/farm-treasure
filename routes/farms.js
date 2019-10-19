@@ -1,10 +1,18 @@
-const express=require('express')
+const express = require('express')
 const bodyPaser = require('body-parser')
-const router=express.Router()
+const router = express.Router()
 
+
+//middleware for authenticating user
+function isLoggedIn(req,res,next){
+    if(req.isAuthenticated()){
+        return next()
+    }
+    res.redirect("/login")
+}
 
 //Route for list of farms
-router.get('/', (req, res) => {
+router.get('/',isLoggedIn, (req, res) => {
     console.log(req.user)
     Farm.find({}, function (err, allfarms) {
         if (err) {
@@ -19,7 +27,13 @@ router.post('/', (req, res) => {
     const name = req.body.name
     const image = req.body.image
     const description = req.body.description
-    const newFarms = { name: name, image: image, description: description }
+    const address = req.body.address
+    const email = req.body.email
+    const contact = req.body.contact
+    const newFarms = {
+        name: name, image: image, description: description,
+        address: address, email: email, contact: contact
+    }
     Farm.create(newFarms, function (err, newlyCreated) {
         if (err) {
             console.log(err)
@@ -30,7 +44,7 @@ router.post('/', (req, res) => {
 })
 
 //Route for form
-router.get('/form', (req, res) => {
+router.get('/form',isLoggedIn, (req, res) => {
     res.render('form.ejs')
 })
 
@@ -47,4 +61,5 @@ router.get('/:id', (req, res) => {
 })
 
 
-module.exports=router
+
+module.exports = router

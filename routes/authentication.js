@@ -1,6 +1,7 @@
 const express=require('express')
 const router=express.Router()
 const passport=require('passport')
+const flash=require('connect-flash')
 
 
 //Route for home page
@@ -8,6 +9,9 @@ router.get('/', (req, res) => {
     res.render('home')
 })
 
+router.get('/main', (req,res)=>{
+    res.render('main')
+})
 
 //Route for userProfile
 router.get('/userProfile', (req, res) => {
@@ -23,6 +27,7 @@ router.post('/register', (req, res) => {
     User.register(newUser, req.body.password, (err, user) => {
         if (err) {
             console.log(err);
+            req.flash('user exist')
             return res.render("register") 
         }
         passport.authenticate("local")(req, res, () => {
@@ -40,7 +45,7 @@ router.get('/login', (req, res) => {
 router.post('/login', passport.authenticate('local',
     {
         successRedirect: "/farms",
-        failureRedirect: "/login"
+        failureRedirect: "/error1"
     }),
     (req, res) => {
     })
@@ -52,6 +57,11 @@ router.get('/logout', (req, res) => {
     res.redirect('/')
 })
 
+
+//Route for error
+router.get('/error1', (req,res)=>{
+    res.render('error1')
+})
 
 
 module.exports =router
