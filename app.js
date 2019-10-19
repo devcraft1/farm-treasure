@@ -1,118 +1,70 @@
-
+//importing installed packages
+require('dotenv').config()
+const DBURI = process.env.DBURI
 const express = require('express')
 const bodyPaser = require('body-parser')
 const mongoose = require('mongoose')
-require('dotenv').config()
-
-const DBURI = process.env.DBURI
+const passport = require('passport')
+const flash =require('connect-flash')
+console.log(flash)
+const localStrategy = require('passport-local')
 const app = express()
 
-app.use(bodyPaser.urlencoded({ extended: true }))
+//importing files:
+// models
+Farm = require('./model/farm')
+User = require('./model/user')
+// Routes
+const authRoute = require('./routes/authentication')
+// console.log(authRoute)
+const farmRoute = require('./routes/farms')
+// console.log(farmRoute)
+
+//Setting view engine
 app.set('view engine', 'ejs')
 
-mongoose.connect('mongodb://localhost:27017/farmTreasure')
+app.use(express.static(__dirname + "/public"));
+//using installed packages:
+//Authentication
+app.use(require("express-session")({
+    secret: "once more",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//Using flash
+app.use(flash())
+
+//Body Paser(for object identification)
+app.use(bodyPaser.urlencoded({ extended: true }))
+
+//using locally created header in all files 
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user
+    //res.locals.error = req.flash("error");
+    //res.locals.success = req.flash("success");
+    next()
+})
+//using routes
+app.use('/', authRoute)
+app.use('/farms', farmRoute)
+
+
+//connecting Mongoose
+const url = process.env.DATABASEURL || DBURI || 'mongodb://localhost:27017/farmTreasureProject';
+mongoose.connect(url)
     .then(() => console.log('mongodb running'))
     .catch((err) => console.log('error', err))
 
 
 
-const farmSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-})
-
-const Farm = mongoose.model('Farm', farmSchema);
-
-// Farm.create(
-//     {
-//         name: "Our Farm",
-//         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH5nWzmSf_uhpCIIddLMfdwgDzoOZhq070yViuSRr_eq1a3Do24-Wd0-gsVQ",
-//         description: "This Farm supplies majorly fibre crops"
-//     }, function (err, farm) {
-//         if (err) {
-//             console.log('err')
-//         } else {
-//             console.log('newlyCreated')
-//             console.log(farm)
-//         }
-//     })
-
-
-
-app.get('/', (req, res) => {
-    res.render('home')
-})
-
-app.get('/farms', (req, res) => {
-    Farm.find({}, function (err, allfarms) {
-        if (err) {
-            console.log(err)
-        } else {
-            re.render("farms", { farms: allfarms })
-        }
-    })
-})
-
-/ //Hard coded render properties of farms
-// const farms = [
-//     { name: "Our Farm", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH5nWzmSf_uhpCIIddLMfdwgDzoOZhq070yViuSRr_eq1a3Do24-Wd0-gsVQ" },
-//     { name: "Ota Farm", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9JSPGHh0JPGGvn4n1LiTn_J7W7VNgjbn8ozDC2UrWe1Nh1b44xX2ckXdB1Q" },
-//     { name: "Sabi Farm", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuW5StkQEf9JafgigDI9T8z_LBt9RAN5wmPhUQZP3lDtv8mKDzUn63XauRGQ" },
-// ]
- 
-// app.get('/farms', (req, res) => { 
-// res.render("farms", { farms: farms })
-//  })
-
-//Getting data from users
-// app.post('/farms', (req, res) => {
-//     const name = req.body.name
-//     const image = req.body.image
-//     const newFarms = { name: name, image: image }
-//     farms.push(newFarms)
-//     res.redirect('/farms')
-// })
-
-
-app.post('/farms', (req, res) => {
-    const name = req.body.name
-    const image = req.body.image
-    const description = req.body.description
-    const newFarms = { name: name, image: image, description: description }
-    Farm.create(newFarms, function (err, newlyCreated) {
-        if (err) {
-            console.log(err)
-        } else {
-            
-            res.redirect('/farms')
-        }
-    })
-
-})
-
-app.get('/farms/form', (req, res) => {
-    res.render('form.ejs')
-})
-
-
-//Note: Ensure this route is least to avoid routing other paths by default.
-//This get request ensures that every farm maintains its own id.
-app.get('/farms/:id', (req, res) => {
-    Farm.findById(req.params.id, (err, foundFarm) => {
-        if (err) {
-            console.log('error ocurred')
-        } else {
-            res.render("display", { farms: foundFarm })
-        }
-    })
-
-})
-
-
+//Port
 const port = process.env.PORT || 3000
 app.listen(port, () => {
     console.log('farmTreasure server running')
 })
-
-
